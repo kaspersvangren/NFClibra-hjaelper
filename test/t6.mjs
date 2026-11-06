@@ -42,8 +42,18 @@ await p.click('#resl'); await p.keyboard.type('3', { delay: 0 });
 ok('Første ciffer er prikket, allerede når det tastes', await p.evaluate(() => window.attrVedInput) === 'prikker');
 await p.keyboard.type('112101234'); await w(50);
 ok('Hele CPR tastet: prikker', await attr('#resl') === 'prikker');
-const geo = await p.evaluate(() => { const h=[...document.documentElement.children].find(e=>e.shadowRoot); const eye=[...h.shadowRoot.querySelectorAll('.eye')].find(e=>e.style.display==='block'); const e=eye.querySelector('svg').getBoundingClientRect(); const ik=[...document.querySelectorAll('.mat-mdc-form-field-icon-suffix mat-icon')].map(m=>m.getBoundingClientRect()); const i1=document.querySelector('#ik1').getBoundingClientRect(); return { eye:[e.left,e.right,e.top+e.height/2,e.width], i1:[i1.left,i1.top+i1.height/2], overlap: ik.some(b=>e.right>b.left && e.left<b.right), farve:getComputedStyle(eye).color }; });
-ok('Øjet sidder lige til venstre for Ciceros første ikon, uden overlap, i samme højde', !geo.overlap && geo.eye[1] <= geo.i1[0] && geo.i1[0] - geo.eye[1] <= 28 && Math.abs(geo.eye[2]-geo.i1[1]) <= 4 && geo.eye[3] === 24 && geo.farve === 'rgb(85, 85, 85)', JSON.stringify(geo));
+const geo = await p.evaluate(() => {
+  const h=[...document.documentElement.children].find(e=>e.shadowRoot);
+  const eye=[...h.shadowRoot.querySelectorAll('.eye')].find(e=>e.style.display==='block');
+  const e=eye.querySelector('svg').getBoundingClientRect();
+  const a=document.querySelector('#ik1 svg').getBoundingClientRect(), b=document.querySelector('#ik2 svg').getBoundingClientRect();
+  const sk=document.querySelector('.mat-mdc-select-arrow svg').getBoundingClientRect(), box=document.querySelector('.mat-mdc-text-field-wrapper').getBoundingClientRect();
+  return { eye:[Math.round(e.left),Math.round(e.right),e.top+e.height/2,e.width], ik1:[a.left,a.top+a.height/2], ik2:[b.left,b.top+b.height/2],
+    afstand: Math.round(a.left-e.right), ikonafstand: Math.round(b.left-a.right), iRammen: e.top>=box.top && e.bottom<=box.bottom,
+    overlap:[a,b].some(x=>e.right>x.left && e.left<x.right && e.bottom>x.top && e.top<x.bottom), farve:getComputedStyle(eye).color };
+});
+ok('Øjet sidder som et ekstra ikon til venstre for Ciceros (samme afstand, højde, størrelse og farve)',
+  !geo.overlap && geo.iRammen && Math.abs(geo.afstand - geo.ikonafstand) <= 1 && Math.abs(geo.eye[2]-geo.ik1[1]) <= 1 && geo.eye[3] === 24 && geo.farve === 'rgb(85, 85, 85)', JSON.stringify(geo));
 await p.screenshot({ path: 'test/cpr-taster.png', clip: { x: 0, y: 40, width: 700, height: 120 } });
 await p.keyboard.press('Enter'); await w(400);
 ok('Efter søgning står navnet, prikker væk', await attr('#resl') === null && (await p.$eval('#resl', x => x.value)) === 'Test Testesen');

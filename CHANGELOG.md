@@ -1,7 +1,7 @@
 # Ændringer
 
 ## Ikke udgivet
-- Øjet ved CPR-felter placeres ud fra tekstfeltets højre kant og ikonområdets højde i stedet for at lede efter Ciceros ikoner (i 0.3.2 kunne det havne oven på et ikon).
+- Øjet ved CPR-felter sættes som en ekstra ikonknap til venstre for Ciceros ikoner (samme afstand, højde og farve), ud fra tekstfeltets kant og ikonområdet. Før ledte udvidelsen efter Ciceros ikoner og ramte den skjulte historik-pil (0.3.1) eller gav op pga. knappernes gennemsigtige berøringsfelt og satte øjet oven på et ikon (0.3.2). Testsiden er bygget efter Ciceros rigtige Låner-felt.
 
 ## 0.3.2
 - Øjet ved CPR-felter placeres kun ud fra Ciceros synlige ikoner inde i feltets ramme (i 0.3.1 kunne det havne under feltet).

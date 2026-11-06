@@ -176,7 +176,13 @@
     const sr = suffix && NH.visible(suffix) ? suffix.getBoundingClientRect() : null;
     const size = 24;
     // Højre kant: tekstfeltets, men aldrig ind over ikonområdet eller ud over rammen
-    const right = Math.min(r.right, sr ? sr.left : Infinity, box.right - 12);
+    let right = Math.min(r.right, sr ? sr.left : Infinity, box.right - 12);
+    // Ciceros ikonknapper er 48 px med ikonet i midten; øjet sættes som en knap mere i samme rytme
+    const btn = sr && [...suffix.querySelectorAll('button')].find((b) => NH.visible(b));
+    if (btn) {
+      const bw = btn.getBoundingClientRect().width;
+      if (bw > size && bw <= 64) return { size, x: right - (bw - size) / 2 - size, cy: sr.top + sr.height / 2, color: getComputedStyle(suffix).color };
+    }
     // Højde: midt i ikonområdet (Ciceros ikoner sidder lidt højere end teksten), ellers midt i teksten
     const cy = sr && sr.height <= box.height ? sr.top + sr.height / 2 : r.top + r.height / 2;
     return { size, x: right - size - 4, cy, color: sr ? getComputedStyle(suffix).color : inheritColor(el) };
