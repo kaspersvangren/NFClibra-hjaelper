@@ -1,28 +1,33 @@
-# Når et versions-tag (fx v0.3.3) skubbes op, pakkes udvidelsen som zip og lægges ud som udgivelse.
+# Når versionsnummeret i udvidelse/manifest.json ændres på main, pakkes udvidelsen som zip
+# og lægges ud som udgivelse (med tag vX.Y.Z). Kan også startes i hånden under Actions.
 name: Udgivelse
 on:
   push:
-    tags: ['v*']
+    branches: [main]
+    paths: ['udvidelse/manifest.json', '.github/workflows/udgivelse.yml']
+  workflow_dispatch:
 permissions:
   contents: write
 jobs:
   udgiv:
     runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@v4
-      - name: Tjek at tag og manifest har samme version
+      - name: Find version
         run: |
           V=$(jq -r .version udvidelse/manifest.json)
-          [ "v$V" = "$GITHUB_REF_NAME" ] || { echo "Tag $GITHUB_REF_NAME passer ikke med manifest $V"; exit 1; }
           echo "V=$V" >> "$GITHUB_ENV"
+          if gh release view "v$V" >/dev/null 2>&1; then echo "FINDES=1" >> "$GITHUB_ENV"; echo "v$V er allerede udgivet"; fi
       - name: Pak zip
+        if: env.FINDES != '1'
         run: |
           mkdir -p dist/NFClibra-hjaelper && cp udvidelse/* dist/NFClibra-hjaelper/
           cd dist && zip -qr "NFClibra-hjaelper-$V.zip" NFClibra-hjaelper
       - name: Lav udgivelse
-        env:
-          GH_TOKEN: ${{ github.token }}
+        if: env.FINDES != '1'
         run: |
           awk -v v="## $V" '$0==v{f=1;next} /^## /{f=0} f' CHANGELOG.md > noter.md
           printf '\n**Installation:** pak zip-filen ud til en mappe, der får lov at blive liggende → `chrome://extensions` eller `edge://extensions` → slå Udviklertilstand til → Indlæs upakket → vælg mappen → genindlæs Cicero.\n' >> noter.md
-          gh release create "$GITHUB_REF_NAME" "dist/NFClibra-hjaelper-$V.zip" --title "NFClibra-hjælper $V" --notes-file noter.md
+          gh release create "v$V" "dist/NFClibra-hjaelper-$V.zip" --target "$GITHUB_SHA" --title "NFClibra-hjælper $V" --notes-file noter.md
