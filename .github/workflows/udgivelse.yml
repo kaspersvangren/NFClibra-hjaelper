@@ -1,0 +1,28 @@
+# Når et versions-tag (fx v0.3.3) skubbes op, pakkes udvidelsen som zip og lægges ud som udgivelse.
+name: Udgivelse
+on:
+  push:
+    tags: ['v*']
+permissions:
+  contents: write
+jobs:
+  udgiv:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Tjek at tag og manifest har samme version
+        run: |
+          V=$(jq -r .version udvidelse/manifest.json)
+          [ "v$V" = "$GITHUB_REF_NAME" ] || { echo "Tag $GITHUB_REF_NAME passer ikke med manifest $V"; exit 1; }
+          echo "V=$V" >> "$GITHUB_ENV"
+      - name: Pak zip
+        run: |
+          mkdir -p dist/NFClibra-hjaelper && cp udvidelse/* dist/NFClibra-hjaelper/
+          cd dist && zip -qr "NFClibra-hjaelper-$V.zip" NFClibra-hjaelper
+      - name: Lav udgivelse
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          awk -v v="## $V" '$0==v{f=1;next} /^## /{f=0} f' CHANGELOG.md > noter.md
+          printf '\n**Installation:** pak zip-filen ud til en mappe, der får lov at blive liggende → `chrome://extensions` eller `edge://extensions` → slå Udviklertilstand til → Indlæs upakket → vælg mappen → genindlæs Cicero.\n' >> noter.md
+          gh release create "$GITHUB_REF_NAME" "dist/NFClibra-hjaelper-$V.zip" --title "NFClibra-hjælper $V" --notes-file noter.md
