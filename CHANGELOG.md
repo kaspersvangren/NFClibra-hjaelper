@@ -1,5 +1,9 @@
 # Ændringer
 
+## 0.4.0
+- Tjek for nye versioner: spørger GitHub højst hver 6. time og viser en besked nederst i Cicero og i opsætningen med et link til zip-filen. "Senere" skjuler den til næste dag; "Tjek nu" i opsætningen; kan slås fra. Det eneste, udvidelsen kontakter uden for Cicero, er GitHub.
+- Denne version skal hentes i hånden; fra nu af siger udvidelsen selv til.
+
 ## 0.3.3
 - Øjet ved CPR-felter sættes som en ekstra ikonknap til venstre for Ciceros ikoner (samme afstand, højde og farve), ud fra tekstfeltets kant og ikonområdet. Før ledte udvidelsen efter Ciceros ikoner og ramte den skjulte historik-pil (0.3.1) eller gav op pga. knappernes gennemsigtige berøringsfelt og satte øjet oven på et ikon (0.3.2). Testsiden er bygget efter Ciceros rigtige Låner-felt.
 

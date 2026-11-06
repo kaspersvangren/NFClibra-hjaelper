@@ -1,7 +1,8 @@
-NFClibra-hjælper 0.3.3 – browserudvidelse til Cicero (Chrome og Edge)
+NFClibra-hjælper 0.4.0 – browserudvidelse til Cicero (Chrome og Edge)
 
 Kører kun på cicero.systematic.com. Læser kun det, der står på siden, trykker kun på Ciceros egne knapper
-og udfylder Ciceros egne felter. Sender intet nogen steder hen.
+og udfylder Ciceros egne felter. Sender intet fra Cicero nogen steder hen.
+Den eneste forbindelse ud er et opslag hos GitHub efter nyeste version (kan slås fra).
 
 OPSÆTNING
 Klik på udvidelsens ikon i værktøjslinjen (fastgør det evt. via puslespilsbrikken).
@@ -32,6 +33,10 @@ TASTATUR
   Hvad der bruges: markerede rækker først, så rækken under musen, så det, der står på siden (fx lånerens flyin).
   Er der flere muligheder, spørges der – tryk tallet, A for alle, eller Esc.
 
+OPDATERINGER
+- Tjek for nye versioner: spørger GitHub højst hver 6. time. Er der en ny version, vises en besked nederst
+  i Cicero og i opsætningen med et link. "Senere" skjuler beskeden til næste dag. "Tjek nu" i opsætningen.
+
 INSTALLATION
 1. Pak zip-filen ud til en mappe, der får lov at blive liggende.
 2. Chrome: chrome://extensions   ·   Edge: edge://extensions
@@ -39,6 +44,7 @@ INSTALLATION
 4. Genindlæs Cicero-fanen.
 
 NY VERSION
-Erstat filerne i mappen, klik på genindlæs-pilen ved udvidelsen, og genindlæs Cicero-fanen.
+Hent zip-filen fra beskeden, pak den ud oven i den gamle mappe, klik på genindlæs-pilen ved udvidelsen,
+og genindlæs Cicero. Indstillingerne bliver ved med at gælde.
 
 QR-koderne laves med nayukis QR Code generator (MIT-licens, se toppen af qrcodegen.js).

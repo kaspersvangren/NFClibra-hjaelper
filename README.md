@@ -2,7 +2,7 @@
 
 Browserudvidelse til Cicero Mobile (Chrome og Edge) – følgesvend til Android-appen [NFClibra](https://github.com/kaspersvangren/NFClibra).
 
-Kører kun på `cicero.systematic.com`. Læser kun det, der står på siden, trykker kun på Ciceros egne knapper og udfylder Ciceros egne felter. Sender intet nogen steder hen.
+Kører kun på `cicero.systematic.com`. Læser kun det, der står på siden, trykker kun på Ciceros egne knapper og udfylder Ciceros egne felter. Sender intet fra Cicero nogen steder hen. Den eneste forbindelse ud er et opslag hos GitHub efter nyeste version (kan slås fra).
 
 > Alpha. Uofficiel og ikke godkendt af Systematic eller KOMBIT. Bruges "as is".
 
@@ -25,6 +25,9 @@ Kører kun på `cicero.systematic.com`. Læser kun det, der står på siden, try
   - `B` posten → katalogsøgning (faustnummer, ellers `bmn=`)
   - `R` reservering – rækken under musen, eller markerede rækker via kurven
 
+**Opdateringer**
+- **Tjek for nye versioner** – spørger GitHub højst hver 6. time. Er der en ny version, vises en besked nederst i Cicero og i opsætningen med et link til zip-filen. "Senere" skjuler beskeden til næste dag.
+
 Hver funktion kan slås til og fra ved at klikke på udvidelsens ikon. Se også [`udvidelse/LÆSMIG.txt`](udvidelse/LÆSMIG.txt).
 
 ## Installation
@@ -34,7 +37,9 @@ Hver funktion kan slås til og fra ved at klikke på udvidelsens ikon. Se også 
 3. Slå **Udviklertilstand** til, klik **Indlæs upakket**, og vælg mappen.
 4. Genindlæs Cicero.
 
-**Ny version:** erstat filerne i mappen, klik på genindlæs-pilen ved udvidelsen, og genindlæs Cicero.
+**Ny version:** udvidelsen siger til (fra 0.4.0). Hent zip-filen, pak den ud oven i den gamle mappe, klik på genindlæs-pilen ved udvidelsen, og genindlæs Cicero. Indstillingerne bliver ved med at gælde.
+
+En ny udgivelse laves automatisk (`.github/workflows/udgivelse.yml`), når versionsnummeret i `udvidelse/manifest.json` ændres på `main`.
 
 ## Udvikling
 

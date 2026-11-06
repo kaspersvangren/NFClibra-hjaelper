@@ -30,6 +30,10 @@
   input:checked + .sw { background: var(--on); }
   input:checked + .sw::after { transform: translateX(14px); }
   input:focus-visible + .sw { outline: 2px solid var(--on); outline-offset: 2px; }
+  .ny { display: none; margin: 0 16px 6px; padding: 9px 11px; border-radius: 8px; background: rgba(25,118,210,.12); }
+  .ny a { color: var(--on); font-weight: 600; }
+  .tjek { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 2px 16px 8px; color: var(--muted); font-size: 12px; }
+  .tjek button { border: 1px solid var(--line); border-radius: 6px; background: transparent; color: var(--fg); padding: 3px 8px; font: inherit; cursor: pointer; }
   footer { margin-top: 8px; padding: 10px 16px 14px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; }
 </style>
 </head>
@@ -38,6 +42,7 @@
   <img src="ikon48.png" alt="">
   <div><b>NFClibra-hjælper</b><span id="ver"></span></div>
 </header>
+<div class="ny" id="ny"></div>
 
 <h2>Musen</h2>
 <label><span class="t">QR ved lånernummer<small>Til NFClibras kamera i Låner-feltet</small></span>
@@ -59,7 +64,12 @@
 <label><span class="t">Træk med <kbd>Ctrl</kbd>+<kbd>Shift</kbd><small><kbd>L</kbd> låner · <kbd>M</kbd> materiale · <kbd>B</kbd> katalog · <kbd>R</kbd> reservér</small></span>
   <input type="checkbox" data-k="traek"><span class="sw"></span></label>
 
-<footer>Ændringer virker med det samme i Cicero. Udvidelsen læser kun det, der står på siden, og sender intet videre.</footer>
+<h2>Opdateringer</h2>
+<label><span class="t">Tjek for nye versioner<small>Spørger GitHub højst hver 6. time og viser en besked i Cicero</small></span>
+  <input type="checkbox" data-k="tjekOpdatering"><span class="sw"></span></label>
+<div class="tjek"><span id="status"></span><button type="button" id="tjeknu">Tjek nu</button></div>
+
+<footer>Ændringer virker med det samme i Cicero. Udvidelsen læser kun det, der står på siden, og sender intet fra Cicero videre. Den spørger kun GitHub om nyeste version.</footer>
 <script src="popup.js"></script>
 </body>
 </html>
