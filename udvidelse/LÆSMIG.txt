@@ -1,0 +1,44 @@
+NFClibra-hjælper 0.3.2 – browserudvidelse til Cicero (Chrome og Edge)
+
+Kører kun på cicero.systematic.com. Læser kun det, der står på siden, trykker kun på Ciceros egne knapper
+og udfylder Ciceros egne felter. Sender intet nogen steder hen.
+
+OPSÆTNING
+Klik på udvidelsens ikon i værktøjslinjen (fastgør det evt. via puslespilsbrikken).
+Hver funktion har sin egen kontakt, og ændringer virker med det samme.
+
+MUSEN
+- QR ved lånernummer: hold musen over et lånernummer → blå QR-knap → klik. Lukker selv efter 30 s.
+- QR ved CQL-linjen: hold musen over Ciceros "CQL:"-linje → QR-knap → klik. Hele søgningen med filtre; kun bai=… er taget fra.
+- Store forsider: hold musen over en lille forside.
+
+PRIVATLIV
+- Skjul CPR-numre (for den, der kigger over skulderen – det er ikke en sikkerhedsfunktion):
+  · I CPR-felter og Låner-feltet: prikker, mens man taster, så længe der kun står cifre
+    (også 8-cifrede lånernumre). Et lånernummer med bogstav (C036…) og navne vises som normalt.
+  · Når feltet ikke er i brug, eller ved en CPR-etiket: 311210-****
+  · Hold øjet nede for at se hele nummeret. Ctrl+C kopierer hele nummeret, beskeden viser kun 311210-****.
+
+TASTATUR
+- Ctrl + mus: hold Ctrl og peg på et felt (titel, forfatter, nummer, et udfyldt felt) – det markeres.
+  Tryk C for at kopiere hele feltet. Har du selv markeret tekst, kopierer Ctrl+C som normalt.
+- Ctrl+Enter: trykker Gennemfør udlån, Afslut aflevering eller Opret reservation.
+- Ctrl+Shift + bogstav trækker det, du står på, med (hold Ctrl+Shift for at se, hvilken række der tages):
+    L  låneren → Lånere, søgt frem og åbnet (på nummer, eller på navn hvis kun navnet står der)
+    M  materialet → materialesøgning   (N kan ikke bruges: Ctrl+Shift+N åbner browserens private vindue)
+    B  posten → katalogsøgning (faustnummer, ellers bmn=materialenummer)
+    R  reservering: rækken under musen åbner reservering direkte;
+       markerede rækker lægges i kurven, og "Gå til reservation" trykkes
+  Hvad der bruges: markerede rækker først, så rækken under musen, så det, der står på siden (fx lånerens flyin).
+  Er der flere muligheder, spørges der – tryk tallet, A for alle, eller Esc.
+
+INSTALLATION
+1. Pak zip-filen ud til en mappe, der får lov at blive liggende.
+2. Chrome: chrome://extensions   ·   Edge: edge://extensions
+3. Slå "Udviklertilstand" til, klik "Indlæs upakket", og vælg mappen.
+4. Genindlæs Cicero-fanen.
+
+NY VERSION
+Erstat filerne i mappen, klik på genindlæs-pilen ved udvidelsen, og genindlæs Cicero-fanen.
+
+QR-koderne laves med nayukis QR Code generator (MIT-licens, se toppen af qrcodegen.js).

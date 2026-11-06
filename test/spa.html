@@ -1,0 +1,117 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Cicero (efterligning)</title><style>
+body{background:#fafafa;color:#222;font:14px Arial;margin:0}
+nav{display:flex;gap:16px;padding:10px 16px;background:#0d47a1}
+nav a{color:#fff;text-decoration:none}
+table{border-collapse:collapse;margin:12px 16px}
+th,td{padding:8px 14px;text-align:left;border-bottom:1px solid #ddd;vertical-align:top}
+td.forf{width:90px}
+mat-form-field{display:inline-flex;flex-direction:column;margin:12px 16px;padding:6px 8px;background:#eef2f6}
+mat-label{font-size:11px;color:#666}
+input{border:0;background:transparent;font:15px Arial;width:260px}
+.fly{position:fixed;right:0;top:44px;width:330px;background:#0d47a1;color:#fff;padding:14px}
+.bar{position:fixed;bottom:12px;right:20px;display:flex;gap:8px}
+.bar button{padding:8px 14px;border-radius:18px;border:0;background:#1976d2;color:#fff}
+button.ikon{width:32px;height:32px;border-radius:16px;border:0;background:#ddd}
+img.th{width:30px;height:40px;object-fit:cover}
+</style></head><body>
+<nav><a href="/catalogue/records">Katalog</a><a href="/catalogue/materials">Materialer</a><a href="/patron-administration">Lånere</a><a href="/circulation">Udlån</a></nav>
+<main id="main"></main>
+<div id="cdk-describedby-message-container" style="visibility:hidden;position:absolute;left:-9999px">
+  <div id="cdk-describedby-message-7">Gå til reservation</div>
+</div>
+<script>
+window.log = [];
+const L = (s) => { window.log.push(s); };
+const main = document.getElementById('main');
+const field = (label, value = '', id = '') => `<mat-form-field class="mat-mdc-form-field"><mat-label>${label}</mat-label><input id="${id}" value="${value.replace(/"/g, '&quot;')}"></mat-form-field>`;
+const POSTER = [
+  ['Pocket Potters - Ron Weasley', 'Rowling, Joanne K.', '142694336', '9781526674012'],
+  ['Pocket Potters - Hermione Granger', 'Rowling, Joanne K.', '142694298', '9781526674029'],
+  ['Hogwarts legacy: Playstation 5', '', '135589853', ''],
+  ['Wyatt', 'Holt, Kimberly Willis', '23456789', '', 'kurv'],
+];
+function render() {
+  const p = location.pathname, q = new URLSearchParams(location.search);
+  if (p === '/catalogue/records') {
+    main.innerHTML = field('CQL', q.get('cqlFreetext') || '', 'cql') + '<button id="soeg">Søg</button>' +
+      '<div class="cql"><span>CQL:</span> (sp=eng and ti="harry potter and the*") and (bai=715900)</div>' +
+      '<table id="t"><thead><tr><th><input type="checkbox" id="alle"></th><th></th><th>Titel</th><th>Forfatter</th><th>Faust-nr.</th><th>ISXN</th><th></th></tr></thead><tbody>' +
+      POSTER.map((r, i) => `<tr><td><input type="checkbox" class="cb"></td><td><img class="th" src="/cover.png"></td><td>${r[0]}</td><td class="forf">${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td><button class="ikon" mattooltip="${r[4] ? 'Fjern fra reservation' : 'Reserver'}" data-f="${r[2]}"><mat-icon>group_add</mat-icon></button></td></tr>`).join('') +
+      '</tbody></table><div class="bar" id="bar"></div>';
+    document.getElementById('soeg').onclick = () => L('katalog:' + document.getElementById('cql').value);
+    main.querySelectorAll('button.ikon[mattooltip=Reserver]').forEach((b) => b.onclick = () => { L('reserver-direkte:' + b.dataset.f); go('/reservations/create'); });
+    let kurv = 1;
+    const bar = document.getElementById('bar');
+    const upd = () => {
+      const n = main.querySelectorAll('input.cb:checked').length;
+      bar.innerHTML = (n ? '<button id="bulk">Reserver</button>' : '') + (kurv ? `<button class="ikon" aria-describedby="cdk-describedby-message-7" id="gaa">${kurv}</button>` : '');
+      const b = document.getElementById('bulk'); if (b) b.onclick = () => { setTimeout(() => { kurv += n; L('kurv:' + n); upd(); }, 300); };
+      const g = document.getElementById('gaa'); if (g) g.onclick = () => { L('gaa-til-reservation:' + kurv); go('/reservations/create'); };
+    };
+    main.querySelectorAll('input.cb').forEach((c) => c.onchange = upd); upd();
+  } else if (p === '/catalogue/materials') {
+    main.innerHTML = field('Materialenummer', '', 'mn') + '<button id="soeg">Søg</button>';
+    document.getElementById('soeg').onclick = () => L('materiale:' + document.getElementById('mn').value);
+  } else if (p === '/patron-administration') {
+    history.replaceState(null, '', '/patron-administration/patron-search'); render(); return;
+  } else if (p === '/patron-administration/patron-search') {
+    setTimeout(() => {   // Angular-agtig forsinkelse
+      main.innerHTML = field('Låner', 'gammel værdi', 'laaner') + field('Navn', '', 'navn') + '<button id="soeg">Søg</button><div id="res"></div>';
+      document.getElementById('soeg').onclick = () => {
+        const v = document.getElementById('laaner').value, n = document.getElementById('navn').value;
+        L('laaner-soeg:' + v + '|' + n);
+        const rows = n ? [['C098765432', 'BFD / Test Testesen'], ['C012345678', 'Test Testesen']].filter(r => r[1].includes(n)) : [[v, 'Test Testesen']];
+        setTimeout(() => {
+          document.getElementById('res').innerHTML = '<table><thead><tr><th>Navn</th><th>Lånernummer</th></tr></thead><tbody>' +
+            rows.map(r => `<tr data-nr="${r[0]}"><td>${r[1]}</td><td>${r[0]}</td></tr>`).join('') + '</tbody></table>';
+          document.querySelectorAll('#res tbody tr').forEach(tr => tr.onclick = () => L('aabn-laaner:' + tr.dataset.nr));
+        }, 400);
+      };
+    }, 300);
+    main.innerHTML = '<p>Indlæser …</p>';
+  } else if (p === '/post/materialer') {
+    main.innerHTML = '<table><thead><tr><th>Materialenr.</th><th>Placering</th><th>Status</th><th>Låner</th></tr></thead><tbody>' +
+      '<tr><td>5461930850</td><td>Hovedbiblioteket/Børn</td><td>Udlånt</td><td>Test Testesen</td></tr>' +
+      '<tr><td>5461930851</td><td>Hovedbiblioteket/Børn</td><td>Hjemme</td><td></td></tr></tbody></table>';
+  } else if (p === '/patron/detalje') {
+    main.innerHTML = field('CPR-nr.', '311210-1234', 'cprf') + field('Navn', 'Test Testesen') +
+      '<div style="margin:12px 16px"><span style="color:#1976d2">CPR</span> <span id="cprt">0101801234</span></div>' +
+      '<div style="margin:12px 16px">Materialenr. <span id="matnr">3112101234</span></div>';
+  } else if (p === '/reservations/create') {
+    main.innerHTML = `<mat-form-field class="mat-mdc-form-field" style="width:420px;background:none;padding:0">
+      <div class="mat-mdc-text-field-wrapper" style="display:flex;align-items:center;border:1px solid #1976d2;border-radius:4px;padding:4px 0 4px 12px;background:#eef2f6">
+        <div style="display:flex;flex-direction:column;flex:1"><mat-label>Låner</mat-label><input id="resl" value="" style="width:auto"></div>
+        <div class="mat-mdc-form-field-icon-suffix" style="display:flex;gap:16px;padding:0 12px;color:#555">
+          <mat-icon style="width:24px;height:24px;display:block;opacity:0;position:absolute"><svg viewBox="0 0 24 24" width="24" height="24"><circle cx="12" cy="12" r="5"/></svg></mat-icon>
+          <mat-icon id="ik1" style="width:24px;height:24px;display:block"><svg viewBox="0 0 24 24" width="24" height="24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/></svg></mat-icon>
+          <mat-icon id="ik2" style="width:24px;height:24px;display:block"><svg viewBox="0 0 24 24" width="24" height="24"><rect x="3" y="5" width="18" height="14" fill="none" stroke="currentColor" stroke-width="2"/></svg></mat-icon>
+        </div></div>
+      <div class="mat-mdc-form-field-subscript-wrapper" style="position:relative;height:24px;font-size:12px">Tryk 'Enter' for at vælge låner
+        <svg class="mdc-icon" style="position:absolute;left:220px;top:-12px;width:24px;height:24px;visibility:hidden" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/></svg>
+        <span class="error-icon" style="position:absolute;left:250px;top:-10px;width:24px;height:24px;display:block"></span></div>
+    </mat-form-field><button id="opret">Opret reservation</button>`;
+    const li = document.getElementById('resl');
+    li.addEventListener('input', () => { window.attrVedInput = li.getAttribute('data-nh-cpr'); });
+    li.addEventListener('keyup', (e) => { if (e.key === 'Enter') setTimeout(() => { li.value = 'Test Testesen'; }, 200); });
+  } else if (p === '/circulation') {
+    main.innerHTML = field('Låner', 'C012345678') + '<div class="fly"><b>Lånernr.</b>&nbsp; <span>C012345678</span></div>' +
+      '<table><thead><tr><th>Materialenummer</th><th>Titel</th><th>Lånernummer</th></tr></thead><tbody>' +
+      '<tr><td>5342010112345</td><td>Harry Potter og de vises sten</td><td>C011122233</td></tr>' +
+      '<tr><td>5342010167890</td><td>Fantastiske skabninger</td><td>C012345678</td></tr></tbody></table>' +
+      '<button id="gu">Gennemfør udlån</button>' +
+      '<div class="felt" id="f1" style="margin:12px 16px;width:300px"><div style="color:#1976d2">Originaltitel</div>Ponyherz findet einen Freund; Tysk</div>' +
+      '<div class="felt" id="f2" style="margin:12px 16px;width:300px"><span style="color:#1976d2">Udgivelse</span><br>Turbine 2026; 117 sider</div>';
+    document.getElementById('gu').onclick = () => L('gennemfoer-udlaan');
+    const li = main.querySelector('mat-form-field input');
+    li.addEventListener('keyup', (e) => { if (e.key === 'Enter') L('vaelg-laaner-aabnet'); });
+  } else {
+    main.innerHTML = '<h2>' + p + '</h2>';
+  }
+}
+function go(path) { history.pushState(null, '', path); render(); }
+document.addEventListener('click', (e) => {
+  const a = e.target.closest('nav a'); if (!a) return; e.preventDefault(); go(a.getAttribute('href'));
+});
+addEventListener('popstate', render);
+render();
+</script></body></html>

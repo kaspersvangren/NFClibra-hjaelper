@@ -1,0 +1,14 @@
+{
+  "name": "nfclibra-hjaelper",
+  "version": "0.3.2",
+  "private": true,
+  "description": "Browserudvidelse til Cicero (Chrome/Edge). Testene kører udvidelsen mod en efterligning af Cicero i en hovedløs Chromium.",
+  "type": "module",
+  "scripts": {
+    "test": "node test/t2.mjs && node test/t6.mjs && node test/t4.mjs && node test/t5.mjs"
+  },
+  "devDependencies": {
+    "@sparticuz/chromium": "^153.0.0",
+    "puppeteer": "^25.16.0"
+  }
+}

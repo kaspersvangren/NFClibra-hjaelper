@@ -1,0 +1,16 @@
+import puppeteer from 'puppeteer'; import chromium from '@sparticuz/chromium'; import fs from 'fs';
+const U = '' + new URL('../udvidelse/', import.meta.url).pathname + '';
+const files = ['qrcodegen.js', 'felles.js', 'qr.js', 'forsider.js', 'kopier.js', 'genveje.js'];
+const src = files.map((f) => fs.readFileSync(U + f, 'utf8')).join('\n;\n').replace("mode: 'closed'", "mode: 'open'");
+const b = await puppeteer.launch({ executablePath: await chromium.executablePath(), headless: 'shell', args: chromium.args });
+const p = await b.newPage(); await p.setViewport({ width: 1200, height: 750 });
+await p.evaluateOnNewDocument(`document.addEventListener('DOMContentLoaded', () => { ${src}\n });`);
+await p.setRequestInterception(true);
+p.on('request', (r) => r.respond({ status: 200, contentType: 'text/html; charset=utf-8', body: fs.readFileSync('' + new URL('./', import.meta.url).pathname + 'spa.html') }));
+await p.goto('https://cicero.systematic.com/catalogue/records'); await new Promise(r=>setTimeout(r,400));
+const pt = await p.evaluate(() => { const r = document.querySelector('td.forf').getBoundingClientRect(); return [r.x+20, r.y+12]; });
+await p.mouse.move(pt[0], pt[1], {steps:2}); await new Promise(r=>setTimeout(r,100));
+await p.keyboard.down('Control'); await new Promise(r=>setTimeout(r,300));
+const n = await p.evaluate(() => { const h=[...document.documentElement.children].find(e=>e.shadowRoot); return [...h.shadowRoot.querySelectorAll('.box')].filter(e=>e.style.display==='block').length; });
+console.log('bokse uden musebevægelse:', n);
+await b.close();
