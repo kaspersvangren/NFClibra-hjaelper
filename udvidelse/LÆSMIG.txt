@@ -1,4 +1,4 @@
-NFClibra-hjælper 0.3.2 – browserudvidelse til Cicero (Chrome og Edge)
+NFClibra-hjælper 0.3.3 – browserudvidelse til Cicero (Chrome og Edge)
 
 Kører kun på cicero.systematic.com. Læser kun det, der står på siden, trykker kun på Ciceros egne knapper
 og udfylder Ciceros egne felter. Sender intet nogen steder hen.

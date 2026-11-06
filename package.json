@@ -1,6 +1,6 @@
 {
   "name": "nfclibra-hjaelper",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "private": true,
   "description": "Browserudvidelse til Cicero (Chrome/Edge). Testene kører udvidelsen mod en efterligning af Cicero i en hovedløs Chromium.",
   "type": "module",

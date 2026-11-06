@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "NFClibra-hjælper",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Genveje og hjælpere til Cicero: QR-koder til NFClibra, store forsider, Ctrl-kopiering, skjulte CPR-numre og tastaturgenveje som i Cicero LMS.",
   "icons": { "16": "ikon16.png", "48": "ikon48.png", "128": "ikon128.png" },
   "permissions": ["storage", "clipboardWrite"],
