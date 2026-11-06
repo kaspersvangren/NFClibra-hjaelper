@@ -81,10 +81,14 @@ function render() {
     main.innerHTML = `<mat-form-field class="mat-mdc-form-field" style="width:420px;background:none;padding:0">
       <div class="mat-mdc-text-field-wrapper" style="display:flex;align-items:center;border:1px solid #1976d2;border-radius:4px;padding:4px 0 4px 12px;background:#eef2f6">
         <div style="display:flex;flex-direction:column;flex:1"><mat-label>Låner</mat-label><input id="resl" value="" style="width:auto"></div>
-        <div class="mat-mdc-form-field-icon-suffix" style="display:flex;gap:16px;padding:0 12px;color:#555">
-          <mat-icon style="width:24px;height:24px;display:block;opacity:0;position:absolute"><svg viewBox="0 0 24 24" width="24" height="24"><circle cx="12" cy="12" r="5"/></svg></mat-icon>
-          <mat-icon id="ik1" style="width:24px;height:24px;display:block"><svg viewBox="0 0 24 24" width="24" height="24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/></svg></mat-icon>
-          <mat-icon id="ik2" style="width:24px;height:24px;display:block"><svg viewBox="0 0 24 24" width="24" height="24"><rect x="3" y="5" width="18" height="14" fill="none" stroke="currentColor" stroke-width="2"/></svg></mat-icon>
+        <div class="mat-mdc-form-field-icon-suffix" style="display:flex;gap:8px;padding:0 4px 0 0;color:#555;position:relative">
+          <button class="mat-mdc-icon-button" style="position:relative;width:40px;height:40px;border:0;background:none;padding:8px;color:inherit">
+            <mat-icon id="ik1" class="mat-icon" style="width:24px;height:24px;display:block"><svg viewBox="0 0 24 24" width="24" height="24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/></svg></mat-icon>
+            <span class="mat-mdc-button-touch-target" style="position:absolute;inset:0"></span></button>
+          <button class="mat-mdc-icon-button" style="position:relative;width:40px;height:40px;border:0;background:none;padding:8px;color:inherit">
+            <mat-icon id="ik2" class="mat-icon" style="width:24px;height:24px;display:block"><svg viewBox="0 0 24 24" width="24" height="24"><rect x="3" y="5" width="18" height="14" fill="none" stroke="currentColor" stroke-width="2"/></svg></mat-icon>
+            <span class="mat-mdc-button-touch-target" style="position:absolute;inset:0"></span></button>
+          <div style="opacity:0;position:absolute;right:-30px;top:8px"><mat-icon class="mat-icon" style="width:24px;height:24px;display:block"><svg viewBox="0 0 24 24" width="24" height="24"><circle cx="12" cy="12" r="5"/></svg></mat-icon></div>
         </div></div>
       <div class="mat-mdc-form-field-subscript-wrapper" style="position:relative;height:24px;font-size:12px">Tryk 'Enter' for at vælge låner
         <svg class="mdc-icon" style="position:absolute;left:220px;top:-12px;width:24px;height:24px;visibility:hidden" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/></svg>

@@ -161,8 +161,9 @@
   }
 
   /**
-   * Hvor øjet skal sidde: i felter som Ciceros egne ikoner (samme størrelse, højde, afstand og farve),
-   * lige til venstre for dem; uden ikoner i feltets højre side; ved tekst lige efter teksten.
+   * Hvor øjet skal sidde. I felter: inde i selve tekstfeltet, helt ude til højre – tekstfeltet slutter,
+   * hvor Ciceros ikoner begynder, så øjet kommer lige til venstre for dem uden at gætte på, hvilke
+   * elementer der er ikoner. 24 px og samme farve som ikonområdet. Ved tekst: lige efter teksten.
    */
   function eyeSpot(el, t, r) {
     if (t.kind === 'tekst') {
@@ -170,36 +171,15 @@
       return { size, x: r.right + 6, cy: r.top + r.height / 2, color: inheritColor(el) };
     }
     const ff = el.closest('mat-form-field, .mat-mdc-form-field');
-    // Feltets egen ramme (uden teksten under feltet, fx "Tryk 'Enter' for at vælge låner")
     const box = ((ff && ff.querySelector('.mat-mdc-text-field-wrapper, .mat-form-field-flex')) || ff || el).getBoundingClientRect();
-    const cy0 = r.top + r.height / 2;
-    // Kun ikoner, der faktisk ses: inde i rammen, ud for teksten, i højre side og øverst på det sted
-    const seen = (i, b) => {
-      const cs = getComputedStyle(i);
-      if (cs.visibility === 'hidden' || +cs.opacity === 0) return false;
-      const top = NH.stack(b.left + b.width / 2, b.top + b.height / 2)[0];
-      return !!top && (top === i || i.contains(top) || top.contains(i));
-    };
-    const pick = (root) => [...root.querySelectorAll('mat-icon, svg, [class*="icon"]')]
-      .filter((i) => !(i.parentElement && i.parentElement.closest('svg')) && !i.closest('mat-label, label'))
-      .map((i) => ({ i, b: i.getBoundingClientRect() }))
-      .filter(({ b }) => b.width >= 12 && b.width <= 40 && b.height >= 12 && b.height <= 40 &&
-        b.left >= r.left + r.width * 0.4 && b.right <= box.right + 1 &&
-        b.top >= box.top - 1 && b.bottom <= box.bottom + 1 && Math.abs(b.top + b.height / 2 - cy0) <= box.height / 2)
-      .filter(({ i, b }) => seen(i, b));
     const suffix = ff && ff.querySelector('.mat-mdc-form-field-icon-suffix, .mat-form-field-suffix');
-    let icons = suffix ? pick(suffix) : [];
-    if (!icons.length && ff) icons = pick(ff);
-    icons.sort((a, b) => a.b.left - b.b.left);
-    // Ydre ikon-elementer kan rumme et indre; behold kun de inderste
-    const own = icons.filter((a) => !icons.some((b) => b !== a && a.i.contains(b.i)));
-    if (own.length) {
-      const first = own[0].b;
-      const size = Math.round(Math.min(first.width, first.height));
-      const gap = own.length > 1 ? Math.max(4, Math.min(24, own[1].b.left - first.right)) : 12;
-      return { size, x: first.left - gap - size, cy: first.top + first.height / 2, color: getComputedStyle(own[0].i).color };
-    }
-    return { size: 24, x: box.right - 12 - 24, cy: cy0, color: inheritColor(el) };
+    const sr = suffix && NH.visible(suffix) ? suffix.getBoundingClientRect() : null;
+    const size = 24;
+    // Højre kant: tekstfeltets, men aldrig ind over ikonområdet eller ud over rammen
+    const right = Math.min(r.right, sr ? sr.left : Infinity, box.right - 12);
+    // Højde: midt i ikonområdet (Ciceros ikoner sidder lidt højere end teksten), ellers midt i teksten
+    const cy = sr && sr.height <= box.height ? sr.top + sr.height / 2 : r.top + r.height / 2;
+    return { size, x: right - size - 4, cy, color: sr ? getComputedStyle(suffix).color : inheritColor(el) };
   }
 
   /** Feltets egen tekstfarve (den er gjort gennemsigtig, så den læses med egenskaben slået fra et øjeblik) */
