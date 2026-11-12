@@ -50,6 +50,9 @@ await klik('143903591');
 let x = await boks();
 ok('Beholdning ved Bestillingsoplysninger med præcis den aftalte tekst', x && x.titel === 'Beholdning' && x.tal === 'Eks: 1  ·  Hjemme: 0  ·  Udlånt: 0  ·  Bestilt: 1  ·  Res: 11', JSON.stringify(x));
 ok('Samme skrift og farve som overskriften, i samme række til højre', x && x.font && x.farve && x.sammeRaekke && x.hoejre);
+const kant = await p.evaluate(() => { const b = document.querySelector('[data-nh-beholdning] .nh-b-tal').getBoundingClientRect();
+  const th = [...document.querySelectorAll('#panel th')].pop(); const r = document.createRange(); r.selectNodeContents(th); return [Math.round(b.right), Math.round(r.getBoundingClientRect().right)]; });
+ok('Tallene slutter ud for tabellens sidste kolonne (afstand til højre kant)', Math.abs(kant[0] - kant[1]) <= 2, JSON.stringify(kant));
 ok('Opslaget brugte Ciceros egen billet og det rigtige faustnummer', opslag.length === 1 && opslag[0].ok && opslag[0].faust === '143903591');
 await p.screenshot({ path: T + 'beholdning.png', clip: { x: 520, y: 150, width: 780, height: 140 } });
 // Placeringer

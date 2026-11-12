@@ -1,5 +1,8 @@
 # Ændringer
 
+## Ikke udgivet
+- Beholdningen slutter ud for tabellens sidste kolonne ("Total") i stedet for helt ude ved panelets højre kant.
+
 ## 0.5.0
 - Beholdning i bestillingspanelet under Materialevalg: når en post åbnes, vises "Beholdning" og `Eks · Hjemme · Udlånt · Bestilt · Res` ved Bestillingsoplysninger i Ciceros egen skrift. Musen over "Eks" viser placeringerne.
 - Tallene hentes med det samme opslag, som Ciceros egen post-flyin bruger, og med Ciceros eget login. Adgangsbilletten bliver i Ciceros side; udvidelsen ser kun tallene.

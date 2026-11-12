@@ -127,7 +127,7 @@ function render() {
         <div><b>Forfatter</b> <span>${r[2]}</span> <b>Faust-nr.</b> <span class="chip">${r[1]}</span> <b>Klassifikation</b> 79.41</div></div>
         <div style="padding:16px 20px;border-top:3px solid #ddd;margin-top:20px"><div id="hrow" style="display:flex;align-items:center;gap:16px;font-family:Georgia,serif;font-size:28px;color:rgb(30,30,30)">
           <mat-icon style="width:28px;height:28px;display:block">🛒</mat-icon><h2 id="bestil" style="font:inherit;margin:0">Bestillingsoplysninger</h2></div>
-          <table><thead><tr><th>Type</th><th>Placering</th><th>Antal</th></tr></thead></table></div>`;
+          <table style="width:100%"><thead><tr><th>Type</th><th>Placering</th><th>Antal</th><th style="text-align:right;padding-right:56px">Total</th></tr></thead></table></div>`;
     });
   } else if (p === '/circulation') {
     main.innerHTML = field('Låner', 'C012345678') + '<div class="fly"><b>Lånernr.</b>&nbsp; <span>C012345678</span></div>' +

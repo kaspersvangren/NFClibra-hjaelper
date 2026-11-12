@@ -89,6 +89,30 @@
     return b;
   }
 
+  /**
+   * Afstand til højre kant: tallene slutter ud for tabellens sidste kolonneoverskrift (fx "Total"),
+   * så de flugter med indholdet nedenunder. Findes den ikke, 32 px.
+   */
+  function justerMargin(h) {
+    if (!boks) return;
+    let maal = null;
+    for (let p = h.parentElement; p && p !== document.body && !maal; p = p.parentElement) {
+      const hr = h.getBoundingClientRect();
+      const w = document.createTreeWalker(p, NodeFilter.SHOW_TEXT);
+      let n, bedst = null;
+      while ((n = w.nextNode())) {
+        if (!n.parentElement || !n.parentElement.closest('th, [role="columnheader"], mat-header-cell, .mat-mdc-header-cell')) continue;
+        const r = NH.textRect(n);
+        if (r && r.top > hr.bottom && r.top - hr.bottom < 200 && (!bedst || r.right > bedst.right)) bedst = r;
+      }
+      if (bedst) maal = bedst.right;
+    }
+    const foer = parseFloat(boks.style.marginRight) || 0;
+    const ret = boks.getBoundingClientRect().right;
+    const ny = maal == null ? 32 : Math.max(12, Math.round(foer + ret - maal));
+    if (Math.abs(ny - foer) > 1) boks.style.marginRight = ny + 'px';
+  }
+
   function skriv(d) {
     const tal = boks.querySelector('.nh-b-tal');
     tal.textContent = '';
@@ -114,6 +138,7 @@
     if (!faust) return fjern();
     if (boks && (!boks.isConnected || !h.parentElement.contains(boks))) { boks.remove(); boks = null; }
     if (!boks) { boks = lavBoks(h); visFaust = null; }
+    justerMargin(h);
     if (faust === visFaust) return;
     visFaust = faust;
     skriv(null);
