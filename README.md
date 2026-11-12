@@ -13,6 +13,9 @@ Kører kun på `cicero.systematic.com`. Læser kun det, der står på siden, try
 - **QR ved CQL-linjen** – hele søgningen med filtre; kun bibliotekets `bai=…` er taget fra. Til NFClibras CQL-kamera.
 - **Store forsider** – hold musen over en lille forside.
 
+**Materialevalg**
+- **Beholdning ved bestilling** – når en post åbnes i materialevalgslisten, står `Eks · Hjemme · Udlånt · Bestilt · Res` ved Bestillingsoplysninger. Musen over "Eks" viser placeringerne. Hentes med samme opslag som Ciceros egen post-flyin, med Ciceros eget login (adgangsbilletten forlader ikke Ciceros side). Kun læse-opslag.
+
 **Privatliv**
 - **Skjul CPR-numre** – prikker mens man taster i CPR-felter og Låner-feltet (så længe der kun er cifre), ellers `311210-****`. Hold øjet nede for at se hele nummeret. Det er en beskyttelse mod at blive kigget over skulderen, ikke en sikkerhedsfunktion.
 
@@ -43,7 +46,7 @@ En ny udgivelse laves automatisk (`.github/workflows/udgivelse.yml`), når versi
 
 ## Udvikling
 
-- `udvidelse/` – selve udvidelsen (Manifest V3). `felles.js` er fælles hjælpere; hver funktion har sin egen fil.
+- `udvidelse/` – selve udvidelsen (Manifest V3). `felles.js` er fælles hjælpere; hver funktion har sin egen fil. `cicero-side.js` kører i Ciceros egen side (`world: MAIN`) og laver opslag med Ciceros login; resten kører afskærmet.
 - `test/` – `spa.html` er en efterligning af Cicero Mobile bygget ud fra skærmbilleder; testene kører udvidelsen mod den i en hovedløs Chromium. De fanger logiske fejl, men ikke alt, hvor det rigtige Cicero er bygget anderledes.
 
 ```

@@ -1,5 +1,10 @@
 # Ændringer
 
+## 0.5.0
+- Beholdning i bestillingspanelet under Materialevalg: når en post åbnes, vises "Beholdning" og `Eks · Hjemme · Udlånt · Bestilt · Res` ved Bestillingsoplysninger i Ciceros egen skrift. Musen over "Eks" viser placeringerne.
+- Tallene hentes med det samme opslag, som Ciceros egen post-flyin bruger, og med Ciceros eget login. Adgangsbilletten bliver i Ciceros side; udvidelsen ser kun tallene.
+- Egen kontakt i opsætningen (Materialevalg).
+
 ## 0.4.0
 - Tjek for nye versioner: spørger GitHub højst hver 6. time og viser en besked nederst i Cicero og i opsætningen med et link til zip-filen. "Senere" skjuler den til næste dag; "Tjek nu" i opsætningen; kan slås fra. Det eneste, udvidelsen kontakter uden for Cicero, er GitHub.
 - Denne version skal hentes i hånden; fra nu af siger udvidelsen selv til.

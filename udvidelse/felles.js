@@ -9,7 +9,7 @@
   const NH = (window.NH = {});
 
   // ---------- Indstillinger ----------
-  NH.STD = { qrLaaner: true, qrCql: true, forsider: true, kopier: true, ctrlEnter: true, traek: true, skjulCpr: true, tjekOpdatering: true };
+  NH.STD = { qrLaaner: true, qrCql: true, forsider: true, kopier: true, ctrlEnter: true, traek: true, skjulCpr: true, tjekOpdatering: true, beholdning: true };
   NH.cfg = { ...NH.STD };
   const cfgLyttere = [];
   NH.onCfg = (f) => cfgLyttere.push(f);

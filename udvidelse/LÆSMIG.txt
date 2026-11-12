@@ -1,4 +1,4 @@
-NFClibra-hjælper 0.4.0 – browserudvidelse til Cicero (Chrome og Edge)
+NFClibra-hjælper 0.5.0 – browserudvidelse til Cicero (Chrome og Edge)
 
 Kører kun på cicero.systematic.com. Læser kun det, der står på siden, trykker kun på Ciceros egne knapper
 og udfylder Ciceros egne felter. Sender intet fra Cicero nogen steder hen.
@@ -12,6 +12,10 @@ MUSEN
 - QR ved lånernummer: hold musen over et lånernummer → blå QR-knap → klik. Lukker selv efter 30 s.
 - QR ved CQL-linjen: hold musen over Ciceros "CQL:"-linje → QR-knap → klik. Hele søgningen med filtre; kun bai=… er taget fra.
 - Store forsider: hold musen over en lille forside.
+
+MATERIALEVALG
+- Beholdning ved bestilling: når en post åbnes i materialevalgslisten, står Eks · Hjemme · Udlånt · Bestilt · Res
+  ved Bestillingsoplysninger. Musen over "Eks" viser placeringerne. Hentes med Ciceros eget login (kun læsning).
 
 PRIVATLIV
 - Skjul CPR-numre (for den, der kigger over skulderen – det er ikke en sikkerhedsfunktion):

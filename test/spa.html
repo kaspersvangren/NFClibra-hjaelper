@@ -110,6 +110,25 @@ function render() {
     const li = document.getElementById('resl');
     li.addEventListener('input', () => { window.attrVedInput = li.getAttribute('data-nh-cpr'); });
     li.addEventListener('keyup', (e) => { if (e.key === 'Enter') setTimeout(() => { li.value = 'Test Testesen'; }, 200); });
+  } else if (p === '/accession/material-selection') {
+    // Efterligning af Materialevalg: Cicero laver selv opslag med sin adgangsbillet (window.__billet)
+    const cicero = (url, body) => { const x = new XMLHttpRequest(); x.open(body ? 'POST' : 'GET', url);
+      x.setRequestHeader('Authorization', 'Bearer ' + window.__billet); x.setRequestHeader('Accept', 'application/json'); x.send(body ? JSON.stringify(body) : null); };
+    cicero('/FBS/rest/cloud/DK-715900/materialselection/list?id=1191304');
+    const RAEKKER = [['Onimusha - way of the sword: Playstation 5', '143903591', ''], ['Fem advents- og julesalmer', '53873715', 'Hersbo, Bjarne'], ['The broadsword and the beast', '137267985', 'Jethro Tull']];
+    main.innerHTML = '<div style="display:flex"><table id="liste" style="width:520px"><thead><tr><th>Titel</th><th>Faust-nr.</th></tr></thead><tbody>' +
+      RAEKKER.map(r => `<tr data-f="${r[1]}" style="cursor:pointer"><td>${r[0]}</td><td>${r[1]}</td></tr>`).join('') + '</tbody></table><aside id="panel" style="display:none;flex:1"></aside></div>';
+    document.querySelectorAll('#liste tbody tr').forEach(tr => tr.onclick = async () => {
+      const r = RAEKKER.find(x => x[1] === tr.dataset.f);
+      if (window.__fornyBillet) await window.__fornyBillet();   // keycloak fornyer billetten, før Cicero laver opslag
+      cicero('/FBS/rest/cloud/DK-715900/bibliographicrecord/fetchMaterialSelectionLists?recordId=' + r[1]);
+      const panel = document.getElementById('panel'); panel.style.display = 'block';
+      panel.innerHTML = `<div style="background:#1565c0;color:#fff;padding:12px 20px"><div style="font-weight:700;font-size:20px">${r[0]}</div>
+        <div><b>Forfatter</b> <span>${r[2]}</span> <b>Faust-nr.</b> <span class="chip">${r[1]}</span> <b>Klassifikation</b> 79.41</div></div>
+        <div style="padding:16px 20px;border-top:3px solid #ddd;margin-top:20px"><div id="hrow" style="display:flex;align-items:center;gap:16px;font-family:Georgia,serif;font-size:28px;color:rgb(30,30,30)">
+          <mat-icon style="width:28px;height:28px;display:block">🛒</mat-icon><h2 id="bestil" style="font:inherit;margin:0">Bestillingsoplysninger</h2></div>
+          <table><thead><tr><th>Type</th><th>Placering</th><th>Antal</th></tr></thead></table></div>`;
+    });
   } else if (p === '/circulation') {
     main.innerHTML = field('Låner', 'C012345678') + '<div class="fly"><b>Lånernr.</b>&nbsp; <span>C012345678</span></div>' +
       '<table><thead><tr><th>Materialenummer</th><th>Titel</th><th>Lånernummer</th></tr></thead><tbody>' +
