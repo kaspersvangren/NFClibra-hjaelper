@@ -1,6 +1,6 @@
 # Ændringer
 
-## Ikke udgivet
+## 0.5.1
 - Beholdningen slutter ud for tabellens sidste kolonne ("Total") i stedet for helt ude ved panelets højre kant.
 
 ## 0.5.0
