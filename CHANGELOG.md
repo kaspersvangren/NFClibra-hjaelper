@@ -1,5 +1,8 @@
 # Ændringer
 
+## 0.5.2
+- Virker også i sandkassen på `cloud-education.nonprod.cicero-lms.com`.
+
 ## 0.5.1
 - Beholdningen slutter ud for tabellens sidste kolonne ("Total") i stedet for helt ude ved panelets højre kant.
 

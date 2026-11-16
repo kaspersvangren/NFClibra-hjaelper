@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "NFClibra-hjælper",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "Genveje og hjælpere til Cicero: QR-koder til NFClibra, store forsider, Ctrl-kopiering, skjulte CPR-numre, beholdning ved bestilling og tastaturgenveje som i Cicero LMS.",
   "icons": {
     "16": "ikon16.png",
@@ -24,7 +24,8 @@
   "content_scripts": [
     {
       "matches": [
-        "https://cicero.systematic.com/*"
+        "https://cicero.systematic.com/*",
+        "https://cloud-education.nonprod.cicero-lms.com/*"
       ],
       "js": [
         "cicero-side.js"
@@ -34,7 +35,8 @@
     },
     {
       "matches": [
-        "https://cicero.systematic.com/*"
+        "https://cicero.systematic.com/*",
+        "https://cloud-education.nonprod.cicero-lms.com/*"
       ],
       "js": [
         "qrcodegen.js",

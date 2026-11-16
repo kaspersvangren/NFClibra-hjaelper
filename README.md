@@ -2,7 +2,7 @@
 
 Browserudvidelse til Cicero Mobile (Chrome og Edge) – følgesvend til Android-appen [NFClibra](https://github.com/kaspersvangren/NFClibra).
 
-Kører kun på `cicero.systematic.com`. Læser kun det, der står på siden, trykker kun på Ciceros egne knapper og udfylder Ciceros egne felter. Sender intet fra Cicero nogen steder hen. Den eneste forbindelse ud er et opslag hos GitHub efter nyeste version (kan slås fra).
+Kører kun på `cicero.systematic.com` og sandkassen `cloud-education.nonprod.cicero-lms.com`. Læser kun det, der står på siden, trykker kun på Ciceros egne knapper og udfylder Ciceros egne felter. Sender intet fra Cicero nogen steder hen. Den eneste forbindelse ud er et opslag hos GitHub efter nyeste version (kan slås fra).
 
 > Alpha. Uofficiel og ikke godkendt af Systematic eller KOMBIT. Bruges "as is".
 
