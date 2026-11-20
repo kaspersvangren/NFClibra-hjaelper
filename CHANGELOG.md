@@ -1,5 +1,8 @@
 # Ændringer
 
+## Ikke udgivet
+- README, LÆSMIG og opsætningen beskriver nu præcist, hvad udvidelsen gør: beholdningen slås op i Cicero med brugerens eget login (kun læsning, kun bogens data), og Ctrl+C lægger det kopierede på udklipsholderen.
+
 ## 0.5.2
 - Virker også i sandkassen på `cloud-education.nonprod.cicero-lms.com`.
 

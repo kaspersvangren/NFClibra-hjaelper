@@ -2,7 +2,11 @@
 
 Browserudvidelse til Cicero Mobile (Chrome og Edge) – følgesvend til Android-appen [NFClibra](https://github.com/kaspersvangren/NFClibra).
 
-Kører kun på `cicero.systematic.com` og sandkassen `cloud-education.nonprod.cicero-lms.com`. Læser kun det, der står på siden, trykker kun på Ciceros egne knapper og udfylder Ciceros egne felter. Sender intet fra Cicero nogen steder hen. Den eneste forbindelse ud er et opslag hos GitHub efter nyeste version (kan slås fra).
+Kører kun på `cicero.systematic.com` og sandkassen `cloud-education.nonprod.cicero-lms.com`, og kun i browseren. Ændrer visningen af Cicero og giver genveje, QR-koder og skjulte CPR-numre. Den arbejder med det, der står på Cicero-siden, trykker kun på Ciceros egne knapper og udfylder Ciceros egne felter.
+
+- **Beholdning ved bestilling** slås op i Cicero med brugerens eget login – kun læsning og kun bogens data (antal og placeringer, ingen lånere). `cicero-side.js` bruger den adgangsbillet, Cicero selv sender med sine opslag; den bliver i Cicero-sidens hukommelse og gemmes ikke.
+- **Ctrl+C** lægger det kopierede på udklipsholderen, som når man selv kopierer. Det kan være et navn eller et CPR-nummer; beskeden viser kun `311210-****`.
+- **Intet gemmes eller sendes videre.** Det eneste, der gemmes, er til/fra-valgene (følger browserprofilen) og svaret fra versionstjekket. Den eneste forbindelse ud af Cicero er versionstjekket hos GitHub (kan slås fra).
 
 > Alpha. Uofficiel og ikke godkendt af Systematic eller KOMBIT. Bruges "as is".
 
@@ -20,7 +24,7 @@ Kører kun på `cicero.systematic.com` og sandkassen `cloud-education.nonprod.ci
 - **Skjul CPR-numre** – prikker mens man taster i CPR-felter og Låner-feltet (så længe der kun er cifre), ellers `311210-****`. Hold øjet nede for at se hele nummeret. Det er en beskyttelse mod at blive kigget over skulderen, ikke en sikkerhedsfunktion.
 
 **Tastatur**
-- **Ctrl + mus, Ctrl+C** – kopierer hele feltet under musen (titel, forfatter, nummer).
+- **Ctrl + mus, Ctrl+C** – kopierer hele feltet under musen (titel, forfatter, nummer) til udklipsholderen.
 - **Ctrl+Enter** – Gennemfør udlån / Afslut aflevering / Opret reservation.
 - **Ctrl+Shift + bogstav** – træk det, man står på, med (som i Cicero LMS):
   - `L` låneren → Lånere, søgt frem og åbnet

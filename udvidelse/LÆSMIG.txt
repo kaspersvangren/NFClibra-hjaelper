@@ -1,8 +1,12 @@
 NFClibra-hjælper 0.5.2 – browserudvidelse til Cicero (Chrome og Edge)
 
-Kører kun på cicero.systematic.com og sandkassen cloud-education.nonprod.cicero-lms.com. Læser kun det, der står på siden, trykker kun på Ciceros egne knapper
-og udfylder Ciceros egne felter. Sender intet fra Cicero nogen steder hen.
-Den eneste forbindelse ud er et opslag hos GitHub efter nyeste version (kan slås fra).
+Kører kun på cicero.systematic.com og sandkassen cloud-education.nonprod.cicero-lms.com, og kun i browseren.
+Ændrer visningen af Cicero og giver genveje, QR-koder og skjulte CPR-numre. Den arbejder med det, der står
+på Cicero-siden, trykker kun på Ciceros egne knapper og udfylder Ciceros egne felter.
+Beholdning ved bestilling slås op i Cicero med brugerens eget login – kun læsning og kun bogens data
+(antal og placeringer, ingen lånere). Adgangsbilletten bliver i Cicero-sidens hukommelse og gemmes ikke.
+Intet gemmes eller sendes videre. Det eneste, der gemmes, er dine til/fra-valg og svaret fra versionstjekket.
+Den eneste forbindelse ud af Cicero er et opslag hos GitHub efter nyeste version (kan slås fra).
 
 OPSÆTNING
 Klik på udvidelsens ikon i værktøjslinjen (fastgør det evt. via puslespilsbrikken).
@@ -27,6 +31,7 @@ PRIVATLIV
 TASTATUR
 - Ctrl + mus: hold Ctrl og peg på et felt (titel, forfatter, nummer, et udfyldt felt) – det markeres.
   Tryk C for at kopiere hele feltet. Har du selv markeret tekst, kopierer Ctrl+C som normalt.
+  Det kopierede lægges på udklipsholderen, som når man selv kopierer – det kan være et navn eller et CPR-nummer.
 - Ctrl+Enter: trykker Gennemfør udlån, Afslut aflevering eller Opret reservation.
 - Ctrl+Shift + bogstav trækker det, du står på, med (hold Ctrl+Shift for at se, hvilken række der tages):
     L  låneren → Lånere, søgt frem og åbnet (på nummer, eller på navn hvis kun navnet står der)
